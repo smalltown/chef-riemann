@@ -19,8 +19,7 @@
 #
 # Sets up the dashboard for Riemann
 
-remote_directory node[:riemann][:dashboard][:directory] do
-  source 'riemann-dash'
+directory node[:riemann][:dashboard][:directory] do
   owner 'riemann'
   group 'riemann'
   mode 00755
@@ -37,13 +36,16 @@ template ::File.join(node[:riemann][:dashboard][:directory], 'config.rb') do
   action :create
 end
 
+gem_package 'thin' do
+  action :install
+end
+
 gem_package 'riemann-dash' do
-  gem_binary '/usr/local/rbenv/shims/gem'
   action :install
 end
 
 runit_service 'riemann-dash' do
-  env node[:riemann][:dashboard][:env]
+#  env node[:riemann][:dashboard][:env]
   default_logger true
   options(
     :envdir => "#{node[:runit][:sv_dir]}/riemann-dash/env",

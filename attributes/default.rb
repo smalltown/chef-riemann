@@ -1,6 +1,6 @@
 # attributes/default.rb
 
-default[:riemann][:version] = '0.2.1'
+default[:riemann][:version] = '0.2.4'
 case node[:platform]
 when 'ubuntu' || 'debian'
   default[:riemann][:package] = "riemann_#{node[:riemann][:version]}_all.deb"
@@ -28,5 +28,5 @@ default[:riemann][:dashboard][:env] = {
 default[:riemann][:health][:enable] = false
 default[:riemann][:riak][:enable] = false
 
-override[:rbenv][:rubies] = [ '1.9.3-p374' ]
+default[:rbenv][:rubies] = '2.1.1'
 

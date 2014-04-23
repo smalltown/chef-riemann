@@ -4,6 +4,11 @@ exec 2>&1
 ulimit -n 4096
 ulimit -a
 
+export RBENV_ROOT=/opt/rbenv
+export PATH=/opt/rbenv/shims:/opt/rbenv/bin:"$PATH"
+
+rbenv local <%= @options[:rubies] %>
+
 exec chpst -u riemann \
   -e <%= @options[:envdir] %> \
   riemann-dash <%= @options[:confdir] %>/config.rb

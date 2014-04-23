@@ -48,7 +48,8 @@ runit_service 'riemann-dash' do
 #  env node[:riemann][:dashboard][:env]
   default_logger true
   options(
-    :envdir => "#{node[:runit][:sv_dir]}/riemann-dash/env",
+    :rubies => node[:rbenv][:rubies], 
+    :envdir => "#{node[:rbenv][:root_path]}/versions/#{node[:rbenv][:rubies]}/bin",
     :confdir => node[:riemann][:dashboard][:directory] )
   action [:enable, :start]
 end
